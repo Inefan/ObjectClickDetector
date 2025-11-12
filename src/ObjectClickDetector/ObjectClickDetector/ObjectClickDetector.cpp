@@ -1,11 +1,34 @@
 // ObjectClickDetector.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <opencv2/opencv.hpp>
 #include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace cv;
+using namespace std;
+
+void onMouse(int event, int x, int y, int flags, void* userdata) {
+    if (event == EVENT_LBUTTONDOWN) {
+        cout << "Click at (" << x << ", " << y << ")" << endl;
+    }
+}
+
+int main() {
+    string imagePath = "C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\test.jpg";
+    cv::Mat img = imread(imagePath);
+
+    if (img.empty()) {
+        cout << "Could not open or find the image!\n";
+        return -1;
+    }
+
+    namedWindow("Image", WINDOW_AUTOSIZE);
+    setMouseCallback("Image", onMouse);
+    imshow("Image", img);
+
+    cout << "Click on the image window.\n";
+    waitKey(0);
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
