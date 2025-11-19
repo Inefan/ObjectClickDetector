@@ -1,6 +1,8 @@
-// ObjectClickDetector.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// ObjectClickDetector.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <torch/script.h>
+#include <torch/torch.h>
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
@@ -29,6 +31,27 @@ int main() {
     cout << "Click on the image window.\n";
     waitKey(0);
     return 0;
+}
+torch::Tensor preprocess_image(const cv::Mat& img_original) {
+    const int H = 640;
+    const int W = 640;
+    cv::Mat img;
+
+    cv::cvtColor(img_original, img, cv::COLOR_BGR2RGB);
+    cv::resize(img, img, cv::Size(W, H));
+
+    torch::Tensor tensor = torch::from_blob(
+        img.data,
+        { 1, H, W, 3 },
+        torch::kByte 
+    );
+    tensor = tensor.permute({ 0,3,1,2 });
+
+    tensor = tensor.to(torch::kFloat);
+
+    tensor = tensor.div(255.0);
+
+    return tensor;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
