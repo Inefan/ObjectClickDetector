@@ -47,6 +47,18 @@ torch::Tensor preprocess_image(const cv::Mat& img_original) {
 
     return tensor;
 }
+torch::Tensor load_inference(const cv::Mat & img) {
+
+    torch::Tensor input = preprocess_image(img);
+
+    std::vector<torch::jit::IValue> inputs;
+    inputs.push_back(input);
+
+    torch::Tensor outputs = model.forward(inputs).toTensor();
+
+    return outputs;
+
+}
 
 int main() {
     string imagePath = "C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\test.jpg";
@@ -65,7 +77,8 @@ int main() {
 
     cout << "Click on the image window.\n";
     waitKey(0);
-    
+    load_inference(img);
+
     return 0;
 
 }
