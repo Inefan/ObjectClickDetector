@@ -16,27 +16,29 @@ using namespace std;
 
 
 int main() {
-
+    // 1) Завантажуєм модель!
     auto model = load_model("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\model\\yolov5s.torchscript");
-
-    original_image = cv::imread("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\photos\\test.jpg");
+    //2) Завантажуєм фото!
+    string image_path = ("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\photos\\test.jpg");
+    original_image = cv::imread(image_path);
     if (original_image.empty()) {
         std::cout << "Image not found!\n";
         return -1;
     }
-
+    // 3) Інференс
     auto output = run_inference(model, original_image);
-    std::cout << "Got output, continuing UI\n";
-    parse_yolo_output(output);
-
-    cv::namedWindow("Image");
-    cv::setMouseCallback("Image", onMouse);
-
+    cout << "Got output, continuing UI\n";
+    // 4) Парс Yolo
+    parse_yolo_output(output, original_image.rows, original_image.cols);
+    // 5)  Малювання боксів
     cv::Mat display = original_image.clone();
     draw_boxes(display);
+    // 6) Додаємо ОнМоус
+    cv::namedWindow("Image");
+    cv::setMouseCallback("Image", onMouse);
     cv::imshow("Image", display);
 
-    std::cout << "Click on an object.\n";
+    cout << "Click on an object.\n";
     cv::waitKey(0);
     return 0;
 }
