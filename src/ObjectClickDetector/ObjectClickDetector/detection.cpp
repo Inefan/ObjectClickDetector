@@ -65,5 +65,11 @@ void parse_yolo_output(const torch::Tensor& output, int orig_h, int orig_w)
      
 }
 
+void draw_boxes(cv::Mat& img)
+{
+    for (auto& b : detected_boxes) {
+        cv::rectangle(img, b.box, cv::Scalar( 0,255,0 ), 2);
+    }
+}
 
 
