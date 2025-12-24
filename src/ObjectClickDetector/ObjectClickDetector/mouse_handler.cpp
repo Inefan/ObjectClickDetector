@@ -1,6 +1,6 @@
 #include "mouse_handler.h"
 #include <iostream>
-
+#include "detection.h"
 using namespace std;
 
 cv::Mat original_image;
@@ -12,6 +12,7 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
         return;
     }
     cout << "Click at (" << x << ", " << y << ")" << endl;
+   
 
     selected_box = -1;
 
