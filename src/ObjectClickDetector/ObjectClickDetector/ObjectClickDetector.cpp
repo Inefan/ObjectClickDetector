@@ -56,15 +56,22 @@ int main() {
         return -1;
     }
 
-    cv::Mat img = cv::imread("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\photos\\test.jpg");
+    cv::Mat img = cv::imread("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\photos\\test2.jpg");
     if (img.empty()) return -1;
-
+    detector.loadClasses("C:\\Users\\MS\\OneDrive\\Desktop\\ObjectClickDetector\\classes.txt");
     detector.detect(img);
-
-    cv::Mat display = img.clone();
-    detector.draw(display);
-
-    cv::imshow("Image", display);
+    cv::Mat base = img.clone();
+    detector.draw(base);
+    cv::namedWindow("Image");
+    MouseContext ctx{ &detector, &base };
+    cv::setMouseCallback(
+        "Image", 
+        onMouse,
+        &ctx
+    );
+   
+  
+    cv::imshow("Image", base);
     cv::waitKey(0);
 }
 

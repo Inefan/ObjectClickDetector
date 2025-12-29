@@ -3,10 +3,13 @@
 #include <vector>
 #include "detect_types.h"
 
+class Detector;
 
-extern cv::Mat original_image;
-extern int selected_box;
-extern std::vector<DetectBox> boxes;
+struct MouseContext {
+	Detector* detector;
+	cv::Mat* base;
+};
+
 
 
 void onMouse(int event, int x, int y, int flags, void* userdata);

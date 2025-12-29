@@ -12,6 +12,9 @@ public:
     void draw(cv::Mat& img) const;
     int getBoxIndex(int x, int y) const;
     bool loadClasses(const std::string& path);
+    std::string getClassName(int cls) const;
+    const std::vector<DetectBox>& getBoxes() const;
+
     
 
 

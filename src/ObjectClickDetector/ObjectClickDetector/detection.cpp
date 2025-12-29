@@ -50,6 +50,7 @@ void Detector::detect(const cv::Mat& image)
         rects.emplace_back(x, y, ww, hh);
         scores.push_back(score);
         classes.push_back(cls);
+        
     }
 
     std::vector<int> indices;
@@ -80,4 +81,18 @@ int Detector::getBoxIndex(int x, int y) const
         }
     }
     return -1;
+}
+
+
+std::string Detector::getClassName(int cls) const
+{
+    if (cls < 0 || cls >= class_names_.size()) {
+        return "unknown";
+    }
+    return class_names_[cls];
+
+}
+
+const std::vector<DetectBox>& Detector::getBoxes() const{
+    return boxes_;
 }

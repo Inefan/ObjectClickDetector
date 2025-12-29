@@ -76,7 +76,7 @@ torch::Tensor run_inference(torch::jit::script::Module& model, const cv::Mat& im
 }
 
 bool Detector::loadClasses(const std::string& path)
-{   
+{
     std::string line;
     this->class_names_.clear();
     std::ifstream ReadFile(path);
@@ -87,11 +87,11 @@ bool Detector::loadClasses(const std::string& path)
     {
         class_names_.push_back(line);
     }
-    for (int i = 0; i < class_names_.size(); ++i) 
-    {
-        std::cout << "ID: " << i << " Name: " << class_names_[i] << std::endl;
-    };
+    for (int i = 0; i < class_names_.size(); ++i) //Only for debug
+    {//Only for debug                        
+        std::cout << "ID: " << i << " Name: " << class_names_[i] << std::endl;//Only for debug
+    };//Only for debug
     if (class_names_.empty()) return false;
     return true;
- 
+
 }
