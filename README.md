@@ -21,5 +21,18 @@ Detects objects with YOLOv5 and allows clicking on them to get class name and co
 4. Mouse hit-test inside bounding boxes
 
 ## Build
-...
+### Requirements
+- Windows 10+
+- C++17
+- OpenCV
+- LibTorch (CPU)
+
+### Build steps
+1. Clone repository
+2. Configure OpenCV and LibTorch paths
+3. Build with Visual Studio (x64 Release)
+4. Place model and classes file in `model/` directory
+
+### Run
+- Image mode: load single image and click on detected objects
 
